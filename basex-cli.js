@@ -4,6 +4,9 @@
 const basex = require('base-x');
 const ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 const coder = basex(ALPHABET);
+// Only for btc, see https://en.bitcoin.it/wiki/Base58Check_encoding
+const base58c = require('base58check');
+
 var what_base = 58;
 var user_input = "";
 
@@ -13,13 +16,14 @@ process.argv.forEach(function (val, index, array) {
   if(index >= 2) {
     switch (index) {
       case 2:
-        what_base = parseInt(val);
+        what_base = val;
         break;
       case 3:
         user_input = val.trim();
         break;
       default:
         console.log("can't recognize your input or too many args");
+        console.log("Usage: basex-cli [58|58c] tbd_string");
         process.exit(-1);
     }
   }
@@ -27,9 +31,14 @@ process.argv.forEach(function (val, index, array) {
 
 let error_code = 0;
 switch (what_base) {
-  case 58:
+  case '58':
     let bytes = coder.decode(user_input);
     console.log(bytes.toString('hex'));
+    error_code = 0;
+    break;
+  case '58c':
+    let b58c_hex = base58c.decode(user_input, 'hex');
+    console.log(b58c_hex);
     error_code = 0;
     break;
   default:

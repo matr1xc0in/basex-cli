@@ -4,17 +4,37 @@ A JavaScript cli tool to encode/decode baseX (e.g. base58)
 * node should be installed
 * npm should be installed
 
-*Limitation*: Only do Base 58 for now. Your help is appreciated. If you notice
-other repo already done this, please let me know. I don't like reinventing wheels.
+*Limitation*: Only do Base58 and Base58check for now. Your help
+is appreciated. If you notice other repo already done this,
+please let me know. I don't like reinventing wheels.
 
-# How to use
+# How to use / Quick Start
+
+*Decode* Only.
 
 ```
 npm install
 ```
 
+* Qtum wallet address decode to Hex, e.g.
+```
+node basex-cli 58c qVuqcjpBmRYGjjVZm1q1LFa28KJGQYPepC
+```
+
+* IPFS address decode to Hex, e.g.
 ```
 node basex-cli.js 58 QmdpMvUptHuGysVn6mj69K53EhitFd2LzeHCmHrHasHjVX
+```
+
+# To decode Qtum wallet address to Hex
+
+Qtum wallet address uses Bitcoin's `base58check` != `base58`.
+See: https://en.bitcoin.it/wiki/Base58Check_encoding
+We currently only do `prefix=00`, future version may do `prefix=05`.
+```
+$ node basex-cli 58c qVuqcjpBmRYGjjVZm1q1LFa28KJGQYPepC
+{ prefix: '78',
+  data: '877feaaf2658f2faa90dc14528674c7e8331b980' }
 ```
 
 # To decode an IPFS hex string

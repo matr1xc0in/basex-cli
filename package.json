@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "base-x": "^3.0.4"
+    "base-x": "^3.0.4",
+    "base58check": "^2.0.0"
   }
 }
